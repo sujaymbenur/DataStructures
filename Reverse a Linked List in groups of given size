@@ -1,0 +1,61 @@
+#link to the question - https://practice.geeksforgeeks.org/problems/reverse-a-linked-list-in-groups-of-given-size/1
+struct node *reverse (struct node *head, int k)
+    {
+        node *p , *q , *itr , *temp , *cur , *prev , *next , *ret;
+        p = head;
+        prev = NULL;
+        cur = head;
+        next = head->next;
+        ret = NULL;
+        int i = 1;
+        while(cur!=NULL)
+        {
+             if(i == k)
+            {
+                 ret = cur;
+                q = next;
+                cur->next = prev;
+                prev = NULL;
+                cur = next;
+                if(next != NULL)
+                {
+                    next = next->next;
+                }
+            }
+            else if(i % k == 0)
+            {
+                cur->next = prev;
+                prev = NULL;
+                p->next = cur;
+                cur = next;
+                p = q;
+                q = next;
+                if(next != NULL)
+                {
+                    next = next->next;
+                }
+            }
+           
+            else
+            {
+                cur->next = prev;
+                prev = cur;
+                cur = next;
+                if(next != NULL)
+                {
+                    next = next->next;
+                }
+            }
+            i = i + 1;
+        }
+        // return ret;
+        if(ret == NULL)
+        {
+            return prev;
+        }
+        else
+        {
+            p->next = prev;
+            return ret;
+        }
+    }
